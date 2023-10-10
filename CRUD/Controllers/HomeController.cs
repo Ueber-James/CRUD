@@ -15,7 +15,7 @@ namespace CRUD.Controllers
         {
             return View();
         }
-
+[HttpGet]
         public IActionResult Cadastrar(int? id)
         {
             var usuario = new Usuario();
@@ -29,6 +29,19 @@ namespace CRUD.Controllers
             }
 
             return View();
+        }
+[HttpPost]
+         public IActionResult Cadastrar( Usuario usuario)
+        {
+            Usuario.Salvar(usuario);
+            return RedirectToAction("Usuarios");
+        }
+
+
+
+         public IActionResult Usuarios()
+        {
+            return View(Usuario.Listagem);
         }
 
 

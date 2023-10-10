@@ -33,6 +33,21 @@ namespace UsandoViews.Models
             Usuario.listagem.Add( new Usuario{ Id = 5, Name = "Fulano", Email = "fulano@email.com"});
         }
 
+        public static void Salvar(Usuario usuario)
+        {
+            var usuarioExistente = Usuario.listagem.Find(u => u.Id == usuario.Id);
+            if (usuarioExistente != null)
+            {
+                usuarioExistente.Name = usuario.Name;
+                usuarioExistente.Email = usuario.Email;
+            }
+            else{
+                int maiorId = Usuario.Listagem.Max(u => u.Id);
+                usuario.Id = maiorId + 1;
+                Usuario.listagem.Add(usuario);
+            }
+        }
+
 
     }
 }
