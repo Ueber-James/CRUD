@@ -1,6 +1,9 @@
 ﻿using CRUD.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using UsandoViews.Models;
+using System.Linq;
+using System.Xml;
 
 namespace CRUD.Controllers
 {
@@ -13,9 +16,19 @@ namespace CRUD.Controllers
             return View();
         }
 
-        public IActionResult Cadastrar()
+        public IActionResult Cadastrar(int? id)
         {
-            return View("FormUsuario");
+            var usuario = new Usuario();
+
+            if (id.HasValue && Usuario.Listagem.Any(u => u.Id == id))
+            {
+               
+                    usuario = Usuario.Listagem.Single(u => u.Id == id);
+                    return View(usuario);
+                
+            }
+
+            return View();
         }
 
 
