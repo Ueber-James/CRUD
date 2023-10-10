@@ -30,6 +30,7 @@ namespace CRUD.Controllers
 
             return View();
         }
+
 [HttpPost]
          public IActionResult Cadastrar( Usuario usuario)
         {
@@ -42,6 +43,23 @@ namespace CRUD.Controllers
          public IActionResult Usuarios()
         {
             return View(Usuario.Listagem);
+        }
+
+
+        [HttpGet]
+        public IActionResult Excluir(int? id)
+        {
+            var usuario = new Usuario();
+
+            if (id.HasValue && Usuario.Listagem.Any(u => u.Id == id))
+            {
+
+                usuario = Usuario.Listagem.Single(u => u.Id == id);
+                return View(usuario);
+
+            }
+
+            return View("Usuarios");
         }
 
 
