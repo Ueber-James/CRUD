@@ -18,12 +18,12 @@ namespace CRUD.Controllers
 [HttpGet]
         public IActionResult Cadastrar(int? id)
         {
-            var usuario = new Usuario();
+            
 
             if (id.HasValue && Usuario.Listagem.Any(u => u.Id == id))
             {
                
-                    usuario = Usuario.Listagem.Single(u => u.Id == id);
+                    var usuario = Usuario.Listagem.Single(u => u.Id == id);
                     return View(usuario);
                 
             }
@@ -49,19 +49,26 @@ namespace CRUD.Controllers
         [HttpGet]
         public IActionResult Excluir(int? id)
         {
-            var usuario = new Usuario();
+           
 
             if (id.HasValue && Usuario.Listagem.Any(u => u.Id == id))
             {
 
-                usuario = Usuario.Listagem.Single(u => u.Id == id);
+                var usuario = Usuario.Listagem.Single(u => u.Id == id);
                 return View(usuario);
 
             }
 
-            return View("Usuarios");
+            return RedirectToAction("Usuarios");
         }
 
+        [HttpPost]
+
+        public IActionResult Excluir(Usuario usuario)
+        {
+            Usuario.Excluir(usuario.Id);
+            return RedirectToAction("Usuarios");
+        }
 
 
     }
